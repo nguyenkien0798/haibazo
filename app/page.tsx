@@ -17,12 +17,13 @@ export default function Home() {
   const [currentNumber, setCurrentNumber] = useState<number>(1);
   const [timer, setTimer] = useState<number>(0);
   const [isStopped, setIsStopped] = useState<boolean>(false);
+  const [messageErrorNumber, setMessageErrorNumber] = useState<string>("")
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const generateNumbers = () => {
     const value = parseInt(inputValue);
     if (isNaN(value) || value <= 0) {
-      setError("Please enter your number!");
+      setMessageErrorNumber("Please enter your number!");
       return;
     }
 
@@ -132,8 +133,9 @@ export default function Home() {
       <div className="relative p-4 w-[800px] h-[800px] mx-auto border-[1px] border-black">
         {error ? (
           <h1
-            className={classNames("text-[24px] text-[#FF0000]", {
+            className={classNames("text-[24px] mb-4", {
               "text-[#00FF00]": error === "ALL CLEARED",
+              "text-[#FF0000]": error !== "ALL CLEARED",
             })}
           >
             {error}
@@ -147,13 +149,16 @@ export default function Home() {
             <p>Time</p>
           </div>
           <div>
-            <input
-              className="mb-2 px-2 border-[1px] border-black"
-              type="number"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              placeholder="Enter your number"
-            />
+            <div className="mb-2 flex items-center gap-2">
+              <input
+                className="px-2 border-[1px] border-black"
+                type="number"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                placeholder="Enter your number"
+              />
+              {messageErrorNumber && <p className="text-[#FF0000] font-medium text-[12px]">{messageErrorNumber}</p>}
+            </div>
             <p className="font-medium">{formatTime(timer)}s</p>
           </div>
         </div>
