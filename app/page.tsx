@@ -22,7 +22,7 @@ export default function Home() {
   const generateNumbers = () => {
     const value = parseInt(inputValue);
     if (isNaN(value) || value <= 0) {
-      setError("Vui lòng nhập một số dương hợp lệ.");
+      setError("Please enter your number!");
       return;
     }
 
