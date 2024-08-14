@@ -27,6 +27,10 @@ export default function Home() {
       return;
     }
 
+    if (value) {
+      setMessageErrorNumber("")
+    }
+
     // Reset everything
     if (timerRef.current) {
       clearInterval(timerRef.current);
